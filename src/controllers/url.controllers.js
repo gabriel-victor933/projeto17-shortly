@@ -23,3 +23,11 @@ export async function getUrl(req,res){
     
     res.send(link.rows[0])
 }
+
+export async function getRedirect(req,res){
+
+    const link = await db.query(`UPDATE shortlinks SET  visitcount = visitcount + 1 
+    WHERE shortlinks.shorturl =  $1 RETURNING url`,[req.params.shortUrl])
+
+    res.redirect(link.rows[0].url)
+}
