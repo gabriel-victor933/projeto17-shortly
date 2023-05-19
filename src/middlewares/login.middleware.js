@@ -1,5 +1,7 @@
 import { signUpSchema,signInSchema } from "../schemas/login.schema.js"
 import { db } from "../dbs/connectDb.js"
+import bcrypt from "bcrypt"
+
 
 export function validateSignup(req,res,next){
     const {error} = signUpSchema.validate(req.body,{abortEarly: false})
@@ -15,7 +17,7 @@ export function validateSignup(req,res,next){
 
 export function validateSignin(req,res,next){
 
-    const {error} = signUpSchema.validate(req.body,{abortEarly: false})
+    const {error} = signInSchema.validate(req.body,{abortEarly: false})
 
     if(error){
         console.log(error.details)
@@ -27,10 +29,23 @@ export function validateSignin(req,res,next){
 }
 
 
-export async function checkUser(req,res,next){
+export async function checkUserEmail(req,res,next){
 
     const user = await db.query("SELECT * FROM users WHERE users.email = $1",[req.body.email])
     if(user.rowCount !== 0) return res.status(409).send("Email já foi cadastrado")
 
     next()
+}
+
+export async function validateUser(req,res,next){
+
+    const user = await db.query(`SELECT password, id FROM users WHERE email=$1`,[req.body.email])
+
+    if(user.rowCount === 0 || !bcrypt.compareSync(req.body.password, user.rows[0].password)){
+        return res.status(401).send("email/senha incorretos")
+    }
+    res.locals.userId = user.rows[0].id
+    next()
+    
+
 }
