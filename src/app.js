@@ -1,14 +1,15 @@
 import Express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
-import {db} from "./dbs/connectDb.js" 
 import LoginRoute from "./routers/login.router.js"
+import UrlRoute from "./routers/url.router.js"
 
 const app = Express()
 dotenv.config()
 app.use(cors())
 app.use(Express.json())
 app.use(LoginRoute)
+app.use(UrlRoute)
 
 
 
