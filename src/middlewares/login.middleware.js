@@ -1,7 +1,20 @@
-import { signUpSchema } from "../schemas/login.schema.js"
+import { signUpSchema,signInSchema } from "../schemas/login.schema.js"
 import { db } from "../dbs/connectDb.js"
 
 export function validateSignup(req,res,next){
+    const {error} = signUpSchema.validate(req.body,{abortEarly: false})
+
+    if(error){
+        console.log(error.details)
+        const message = error.details.map((d)=> d.message)
+        res.status(422).send(message)
+    } else {
+        next()
+    }
+}
+
+export function validateSignin(req,res,next){
+
     const {error} = signUpSchema.validate(req.body,{abortEarly: false})
 
     if(error){
