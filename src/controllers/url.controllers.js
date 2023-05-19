@@ -31,3 +31,16 @@ export async function getRedirect(req,res){
 
     res.redirect(link.rows[0].url)
 }
+
+export async function deleteUrl(req,res){
+
+    const id = parseInt(req.params.id)
+
+    if(!id) return res.status(400).send("invalid id")
+
+    const teste = await db.query(``,[])
+
+    console.log(teste.rows)
+
+    res.send("ok")
+}

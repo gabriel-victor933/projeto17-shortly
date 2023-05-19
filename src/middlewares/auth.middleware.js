@@ -12,6 +12,7 @@ export async function authToken(req,res,next){
     if(user.rowCount === 0) return res.status(401).send("invalid token")
 
     res.locals.userId = user.rows[0].userid
+    res.locals.token = token
     next()
 
 }
