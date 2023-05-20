@@ -4,7 +4,7 @@ import cors from "cors"
 import LoginRoute from "./routers/login.router.js"
 import UrlRoute from "./routers/url.router.js"
 import UsersRoute from "./routers/users.router.js"
-
+import RankRoute from "./routers/ranking.router.js"
 
 const app = Express()
 dotenv.config()
@@ -13,7 +13,7 @@ app.use(Express.json())
 app.use(LoginRoute)
 app.use(UrlRoute)
 app.use(UsersRoute)
-
+app.use(RankRoute)
 
 const port = process.env.port || 5000
 app.listen(port,()=>console.log(`running server at port ${port}` ))
