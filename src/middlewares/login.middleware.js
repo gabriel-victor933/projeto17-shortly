@@ -31,14 +31,18 @@ export function validateSignin(req,res,next){
 
 export async function checkUserEmail(req,res,next){
 
-    const user = await db.query("SELECT * FROM users WHERE users.email = $1",[req.body.email])
+    try {const user = await db.query("SELECT * FROM users WHERE users.email = $1",[req.body.email])
     if(user.rowCount !== 0) return res.status(409).send("Email já foi cadastrado")
 
     next()
+    } catch(err){
+        return res.status(500).send(err)
+    }
 }
 
 export async function validateUser(req,res,next){
 
+    try {
     const user = await db.query(`SELECT password, id FROM users WHERE email=$1`,[req.body.email])
 
     if(user.rowCount === 0 || !bcrypt.compareSync(req.body.password, user.rows[0].password)){
@@ -46,6 +50,9 @@ export async function validateUser(req,res,next){
     }
     res.locals.userId = user.rows[0].id
     next()
+    } catch(err){
+        return res.status(500).send(err)
+    }
     
 
 }
