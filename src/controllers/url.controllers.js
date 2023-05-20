@@ -37,10 +37,21 @@ export async function deleteUrl(req,res){
     const id = parseInt(req.params.id)
 
     if(!id) return res.status(400).send("invalid id")
+    
+    try{
 
-    const teste = await db.query(``,[])
+        const post = await db.query(`SELECT * FROM  shortlinks WHERE shortlinks.id = $1;`,[req.params.id])
 
-    console.log(teste.rows)
+        if(post.rowCount === 0) return res.status(404).send("Not found")
 
-    res.send("ok")
+        if(post.rows[0].userid != res.locals.userId) return res.status(401).send("invalid")
+
+        await db.query(`DELETE FROM shortlinks WHERE shortlinks.id = $1`,[req.params.id])
+    
+        return res.status(204).send("deleted")
+    } catch(err){
+        return res.status(500).send(err)
+    }
+
+    
 }
