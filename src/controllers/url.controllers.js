@@ -39,6 +39,8 @@ export async function getRedirect(req,res){
     const link = await db.query(`UPDATE shortlinks SET  visitcount = visitcount + 1 
     WHERE shortlinks.shorturl =  $1 RETURNING url`,[req.params.shortUrl])
 
+    if(link.rowCount === 0 ) return res.status(404).send("not found")
+
     return res.redirect(link.rows[0].url)
 
     } catch(err){

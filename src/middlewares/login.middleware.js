@@ -7,7 +7,7 @@ export function validateSignup(req,res,next){
     const {error} = signUpSchema.validate(req.body,{abortEarly: false})
 
     if(error){
-        console.log(error.details)
+       
         const message = error.details.map((d)=> d.message)
         res.status(422).send(message)
     } else {
