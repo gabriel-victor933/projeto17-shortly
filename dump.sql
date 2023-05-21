@@ -44,7 +44,8 @@ CREATE TABLE public.shortlinks (
     url text NOT NULL,
     shorturl text NOT NULL,
     visitcount integer DEFAULT 0,
-    dataposted timestamp without time zone DEFAULT now()
+    dataposted timestamp without time zone DEFAULT now(),
+    "createdAt" timestamp without time zone DEFAULT now()
 );
 
 
@@ -74,7 +75,8 @@ ALTER SEQUENCE public.shortlinks_id_seq OWNED BY public.shortlinks.id;
 
 CREATE TABLE public.tokens (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    userid integer
+    userid integer,
+    "createdAt" timestamp without time zone DEFAULT now()
 );
 
 
@@ -86,7 +88,8 @@ CREATE TABLE public.users (
     id integer NOT NULL,
     name character varying(50) NOT NULL,
     email character varying(50) NOT NULL,
-    password text NOT NULL
+    password text NOT NULL,
+    "createdAt" timestamp without time zone DEFAULT now()
 );
 
 
@@ -128,29 +131,18 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: shortlinks; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.shortlinks VALUES (9, 7, 'https://...', 'BY_fip6VRyxcSMCBqPNcu', 0, '2023-05-20 14:09:23.388849');
-INSERT INTO public.shortlinks VALUES (10, 7, 'https://...', 'mGV65AmP1QND3Bt1_sj-2', 0, '2023-05-20 14:09:23.829886');
-INSERT INTO public.shortlinks VALUES (11, 7, 'https://...', 'PGaMe9c06eZyFIr40cRkY', 0, '2023-05-20 14:09:24.23427');
-INSERT INTO public.shortlinks VALUES (6, 7, 'https://...', 'up35NO8MStx_iHPSh0NpH', 3, '2023-05-20 14:09:21.586145');
-INSERT INTO public.shortlinks VALUES (12, 8, 'https://google.com', 'LJNmvJDWuKfLiuFKtLtin', 0, '2023-05-20 17:18:29.57327');
-INSERT INTO public.shortlinks VALUES (13, 8, 'https://google.com', '9uQv_YDfLEfhL6XCSKiDT', 0, '2023-05-20 17:18:32.138232');
 
 
 --
 -- Data for Name: tokens; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.tokens VALUES ('ca6b38c7-11f9-40ff-bb64-456b85a222aa', 7);
-INSERT INTO public.tokens VALUES ('026b4acf-5d0a-43a3-9a69-f9d33ca2c5bb', 7);
-INSERT INTO public.tokens VALUES ('05292653-2257-46e4-9745-4767ac12e25a', 8);
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (7, 'João', 'joao@driven.com.br', '$2b$10$4gLCbgGumcRr3VQZWtHUNuj81lP.6VveYo5JH76Sq0mAhhqt8HzpK');
-INSERT INTO public.users VALUES (8, 'Gabriel', 'Gabriel@driven.com.br', '$2b$10$KRQcNrtsOITBdAYVvownU.pWLyg19AD.8tjra6wY2KZyS.KYFEMVe');
 
 
 --
