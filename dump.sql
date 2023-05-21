@@ -40,11 +40,11 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.shortlinks (
     id integer NOT NULL,
-    userid integer NOT NULL,
+    "userId" integer NOT NULL,
     url text NOT NULL,
-    shorturl text NOT NULL,
-    visitcount integer DEFAULT 0,
-    dataposted timestamp without time zone DEFAULT now(),
+    "shortUrl" text NOT NULL,
+    "visitCount" integer DEFAULT 0,
+    "dataPosted" timestamp without time zone DEFAULT now(),
     "createdAt" timestamp without time zone DEFAULT now()
 );
 
@@ -75,7 +75,7 @@ ALTER SEQUENCE public.shortlinks_id_seq OWNED BY public.shortlinks.id;
 
 CREATE TABLE public.tokens (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    userid integer,
+    "userId" integer,
     "createdAt" timestamp without time zone DEFAULT now()
 );
 
@@ -131,32 +131,37 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: shortlinks; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.shortlinks VALUES (14, 9, 'https://www.google.com', 'iJUrIuduWECE5Hay5i5pC', 2, '2023-05-21 17:22:56.790973', '2023-05-21 17:22:56.790973');
+INSERT INTO public.shortlinks VALUES (17, 9, 'https://www.google.com', 'wEeUfoCoU_9OAPQeeTIHT', 1, '2023-05-21 17:23:24.944163', '2023-05-21 17:23:24.944163');
+INSERT INTO public.shortlinks VALUES (15, 9, 'https://www.google.com', 'Mva4Y7IgfAaq9_B6Vy7Yw', 3, '2023-05-21 17:23:22.228016', '2023-05-21 17:23:22.228016');
 
 
 --
 -- Data for Name: tokens; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.tokens VALUES ('05b807f3-851e-47ca-86f5-2207a7194142', 9, '2023-05-21 17:21:13.816873');
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.users VALUES (9, 'João', 'joao@driven.com.br', '$2b$10$L/6VAj1vXBMeStYu10nYEuN7u.Jt0XRGArO7cEJgpwu1jcv6W6nOi', '2023-05-21 17:20:57.500334');
 
 
 --
 -- Name: shortlinks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.shortlinks_id_seq', 13, true);
+SELECT pg_catalog.setval('public.shortlinks_id_seq', 17, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 8, true);
+SELECT pg_catalog.setval('public.users_id_seq', 9, true);
 
 
 --
@@ -196,7 +201,7 @@ ALTER TABLE ONLY public.users
 --
 
 ALTER TABLE ONLY public.shortlinks
-    ADD CONSTRAINT shortlinks_userid_fkey FOREIGN KEY (userid) REFERENCES public.users(id);
+    ADD CONSTRAINT shortlinks_userid_fkey FOREIGN KEY ("userId") REFERENCES public.users(id);
 
 
 --
@@ -204,7 +209,7 @@ ALTER TABLE ONLY public.shortlinks
 --
 
 ALTER TABLE ONLY public.tokens
-    ADD CONSTRAINT tokens_userid_fkey FOREIGN KEY (userid) REFERENCES public.users(id);
+    ADD CONSTRAINT tokens_userid_fkey FOREIGN KEY ("userId") REFERENCES public.users(id);
 
 
 --
