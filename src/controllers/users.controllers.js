@@ -6,17 +6,17 @@ export async function getUsersUrls(req,res){
     try{
 
         const data = await db.query(`SELECT users.id AS userid, users.name, shortlinks.id, 
-        shortlinks.shorturl, shortlinks.url,shortlinks.visitcount, SUM(shortlinks.visitcount) AS total 
+        shortlinks."shortUrl", shortlinks.url,shortlinks."visitCount", SUM(shortlinks."visitCount") AS total 
         FROM users 
-        JOIN shortlinks ON users.id = shortlinks.userid       
+        JOIN shortlinks ON users.id = shortlinks."userId"      
         WHERE users.id = $1
         GROUP by users.id,
         users.name,
         shortlinks.id,
-        shortlinks.shorturl,
+        shortlinks."shortUrl",
         shortlinks.url,
-        shortlinks.visitcount
-        ORDER BY shortlinks.visitcount DESC;`,[res.locals.userId])
+        shortlinks."visitCount"
+        ORDER BY shortlinks."visitCount" DESC;`,[res.locals.userId])
 
 
         const posts = {
@@ -31,11 +31,11 @@ export async function getUsersUrls(req,res){
             data.rows.forEach((row)=>{
                 const post = {
                     id: row.id,
-                    shortUrl: row.shorturl,
+                    shortUrl: row.shortUrl,
                     url: row.url,
-                    visitCount: row.visitcount
+                    visitCount: row.visitCount
                 }
-                posts.visitCount += row.visitcount;
+                posts.visitCount += row.visitCount;
                 posts.shortenedUrls.push(post)
             })
         }

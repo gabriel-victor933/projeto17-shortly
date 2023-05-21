@@ -5,10 +5,10 @@ export async function getRanking(req,res){
 
     try{
 
-        const rank = await db.query(`SELECT users.id AS userid, users.name, 
-        SUM(shortlinks.visitcount) AS "visitCount", COUNT(shortlinks.ID) AS "linksCount"
+        const rank = await db.query(`SELECT users.id AS id, users.name, 
+        SUM(shortlinks."visitCount") AS "visitCount", COUNT(shortlinks.id) AS "linksCount"
             FROM users 
-            LEFT JOIN shortlinks ON users.id = shortlinks.userid       
+            LEFT JOIN shortlinks ON users.id = shortlinks."userId"      
             GROUP by users.id,
             users.name
             ORDER BY "visitCount" DESC

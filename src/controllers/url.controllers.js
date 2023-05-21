@@ -22,7 +22,7 @@ export async function getUrl(req,res){
     if(!id) return res.status(400).send("invalid id")
 
    try { 
-    const link = await db.query(`SELECT id,shorturl,url FROM shortlinks WHERE shortlinks.id = $1`,[req.params.id])
+    const link = await db.query(`SELECT id,"shortUrl",url FROM shortlinks WHERE shortlinks.id = $1`,[req.params.id])
 
     if(link.rowCount === 0) return res.status(404).send("URl doenst exist")
 
@@ -37,8 +37,8 @@ export async function getRedirect(req,res){
 
    try{ 
 
-    const link = await db.query(`UPDATE shortlinks SET  visitcount = visitcount + 1 
-    WHERE shortlinks.shorturl =  $1 RETURNING url`,[req.params.shortUrl])
+    const link = await db.query(`UPDATE shortlinks SET  "visitCount" = "visitCount" + 1 
+    WHERE shortlinks."shortUrl" =  $1 RETURNING url`,[req.params.shortUrl])
 
     if(link.rowCount === 0 ) return res.status(404).send("not found")
 
@@ -61,7 +61,7 @@ export async function deleteUrl(req,res){
 
         if(post.rowCount === 0) return res.status(404).send("Not found")
 
-        if(post.rows[0].userid != res.locals.userId) return res.status(401).send("invalid")
+        if(post.rows[0].userId != res.locals.userId) return res.status(401).send("invalid")
 
         await db.query(`DELETE FROM shortlinks WHERE shortlinks.id = $1`,[req.params.id])
     
