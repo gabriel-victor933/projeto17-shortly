@@ -5,7 +5,7 @@ export function validateUrl(req,res,next){
     const {error} = UrlSchema.validate(req.body)
 
     if(error){
-        return res.status(401).send(error.details[0].message)
+        return res.status(422).send(error.details[0].message)
     }
     next()
 }
