@@ -131,9 +131,9 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: shortlinks; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.shortlinks VALUES (14, 9, 'https://www.google.com', 'iJUrIuduWECE5Hay5i5pC', 2, '2023-05-21 17:22:56.790973', '2023-05-21 17:22:56.790973');
 INSERT INTO public.shortlinks VALUES (17, 9, 'https://www.google.com', 'wEeUfoCoU_9OAPQeeTIHT', 1, '2023-05-21 17:23:24.944163', '2023-05-21 17:23:24.944163');
-INSERT INTO public.shortlinks VALUES (15, 9, 'https://www.google.com', 'Mva4Y7IgfAaq9_B6Vy7Yw', 3, '2023-05-21 17:23:22.228016', '2023-05-21 17:23:22.228016');
+INSERT INTO public.shortlinks VALUES (25, 10, 'https://www.google.com', 'AvxNFCqKxxnM2g2d0n0e-', 0, '2023-05-21 18:42:16.438641', '2023-05-21 18:42:16.438641');
+INSERT INTO public.shortlinks VALUES (15, 9, 'https://www.google.com', 'Mva4Y7IgfAaq9_B6Vy7Yw', 5, '2023-05-21 17:23:22.228016', '2023-05-21 17:23:22.228016');
 
 
 --
@@ -141,6 +141,7 @@ INSERT INTO public.shortlinks VALUES (15, 9, 'https://www.google.com', 'Mva4Y7Ig
 --
 
 INSERT INTO public.tokens VALUES ('05b807f3-851e-47ca-86f5-2207a7194142', 9, '2023-05-21 17:21:13.816873');
+INSERT INTO public.tokens VALUES ('49742a8c-2d28-47ac-8ec9-e387a5f67f7d', 10, '2023-05-21 18:31:57.189277');
 
 
 --
@@ -148,20 +149,21 @@ INSERT INTO public.tokens VALUES ('05b807f3-851e-47ca-86f5-2207a7194142', 9, '20
 --
 
 INSERT INTO public.users VALUES (9, 'João', 'joao@driven.com.br', '$2b$10$L/6VAj1vXBMeStYu10nYEuN7u.Jt0XRGArO7cEJgpwu1jcv6W6nOi', '2023-05-21 17:20:57.500334');
+INSERT INTO public.users VALUES (10, 'João', 'joao123@driven.com.br', '$2b$10$iacH41iQudQiOLLwJr5nkOBV1LTq0r.6eJcPOw0q4zzYxUvm/TBpm', '2023-05-21 18:29:37.700586');
 
 
 --
 -- Name: shortlinks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.shortlinks_id_seq', 17, true);
+SELECT pg_catalog.setval('public.shortlinks_id_seq', 25, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 9, true);
+SELECT pg_catalog.setval('public.users_id_seq', 10, true);
 
 
 --
