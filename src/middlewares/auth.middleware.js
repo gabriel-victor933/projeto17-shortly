@@ -12,8 +12,8 @@ export async function authToken(req,res,next){
         const user = await db.query(`SELECT * FROM tokens WHERE tokens.id = $1`, [token])
 
         if (user.rowCount === 0) return res.status(401).send("invalid token")
-
-        res.locals.userId = user.rows[0].userid
+        
+        res.locals.userId = user.rows[0].userId
         next()
 
     }catch(err){

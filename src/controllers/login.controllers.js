@@ -17,7 +17,8 @@ export async function postSignup(req,res){
 export async function postSignin(req,res){
 
     try {
-        const token = await db.query(`INSERT INTO tokens (userId) VALUES ($1) RETURNING id;`,[res.locals.userId])
+        console.log(res.locals.userId)
+        const token = await db.query(`INSERT INTO tokens ("userId") VALUES ($1) RETURNING id;`,[res.locals.userId])
     res.status(200).send({token: token.rows[0].id})
     } catch(err){
         return res.status(500).send(err)
