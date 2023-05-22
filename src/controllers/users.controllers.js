@@ -18,6 +18,7 @@ export async function getUsersUrls(req,res){
         shortlinks."visitCount"
         ORDER BY shortlinks."visitCount" DESC;`,[res.locals.userId])
 
+        if(data.rowCount === 0 ) return res.sendStatus(204)
 
         const posts = {
             id: data.rows[0].userid,
