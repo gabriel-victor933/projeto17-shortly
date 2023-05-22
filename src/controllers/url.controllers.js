@@ -1,12 +1,13 @@
 import { nanoid } from "nanoid"
 import { db } from "../dbs/connectDb.js"
+import { postUrlRepository, getUrlRepository, updateUrlRepository,deleteURlRepository } from "../repository/url.repository.js"
 
 export async function postUrl(req,res){
 
     const shortUrl = nanoid()
 
-    try {const data = await db.query(`INSERT INTO shortlinks ("userId", url,"shortUrl") 
-        VALUES ($1,$2,$3) RETURNING id,"shortUrl"`,[res.locals.userId,req.body.url,shortUrl])
+    try {
+    const data = await postUrlRepository(res.locals.userId,req.body.url,shortUrl)
         
     res.status(201).send(data.rows[0])
 
@@ -22,7 +23,7 @@ export async function getUrl(req,res){
     if(!id) return res.status(400).send("invalid id")
 
    try { 
-    const link = await db.query(`SELECT id,"shortUrl",url FROM shortlinks WHERE shortlinks.id = $1`,[req.params.id])
+    const link = await getUrlRepository(req.params.id)
 
     if(link.rowCount === 0) return res.status(404).send("URl doenst exist")
 
@@ -37,8 +38,7 @@ export async function getRedirect(req,res){
 
    try{ 
 
-    const link = await db.query(`UPDATE shortlinks SET  "visitCount" = "visitCount" + 1 
-    WHERE shortlinks."shortUrl" =  $1 RETURNING url`,[req.params.shortUrl])
+    const link = await updateUrlRepository(req.params.shortUrl)
 
     if(link.rowCount === 0 ) return res.status(404).send("not found")
 
@@ -57,13 +57,13 @@ export async function deleteUrl(req,res){
     
     try{
 
-        const post = await db.query(`SELECT * FROM  shortlinks WHERE shortlinks.id = $1;`,[req.params.id])
+        const post = await getUrlRepository(req.params.id)
 
         if(post.rowCount === 0) return res.status(404).send("Not found")
 
         if(post.rows[0].userId != res.locals.userId) return res.status(401).send("invalid")
 
-        await db.query(`DELETE FROM shortlinks WHERE shortlinks.id = $1`,[req.params.id])
+        await deleteURlRepository(req.params.id)
     
         return res.status(204).send("deleted")
     } catch(err){
