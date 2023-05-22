@@ -1,4 +1,3 @@
-import {db} from "../dbs/connectDb.js"
 import bcrypt from "bcrypt"
 import { postUserrepository,postTokenRepository } from "../repository/login.repository.js"
 

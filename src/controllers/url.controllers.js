@@ -1,5 +1,4 @@
 import { nanoid } from "nanoid"
-import { db } from "../dbs/connectDb.js"
 import { postUrlRepository, getUrlRepository, updateUrlRepository,deleteURlRepository } from "../repository/url.repository.js"
 
 export async function postUrl(req,res){

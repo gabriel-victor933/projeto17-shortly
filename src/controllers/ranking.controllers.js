@@ -1,4 +1,3 @@
-import { db } from "../dbs/connectDb.js";
 import { getRankingRepository } from "../repository/ranking.repository.js";
 
 

@@ -1,22 +1,10 @@
-import { db } from "../dbs/connectDb.js";
-
+import {getUserUrlsRepository} from "../repository/users.repository.js"
 
 export async function getUsersUrls(req,res){
 
     try{
 
-        const data = await db.query(`SELECT users.id AS userid, users.name, shortlinks.id, 
-        shortlinks."shortUrl", shortlinks.url,shortlinks."visitCount", SUM(shortlinks."visitCount") AS total 
-        FROM users 
-        JOIN shortlinks ON users.id = shortlinks."userId"      
-        WHERE users.id = $1
-        GROUP by users.id,
-        users.name,
-        shortlinks.id,
-        shortlinks."shortUrl",
-        shortlinks.url,
-        shortlinks."visitCount"
-        ORDER BY shortlinks."visitCount" DESC;`,[res.locals.userId])
+        const data = await getUserUrlsRepository(res.locals.userId)
 
         if(data.rowCount === 0 ) return res.sendStatus(204)
 
